@@ -1,4 +1,4 @@
-import {getFflogsEvents} from 'api'
+import {getFflogsEvents, getFflogsEventsNew} from 'api'
 import * as Errors from 'errors'
 import {Event} from 'event'
 import {Actor as FflogsActor, Fight} from 'fflogs'
@@ -88,10 +88,10 @@ export class Conductor {
 		this.resultsCache = undefined
 
 		// Fetch events
-		const events = await getFflogsEvents(
+		const events = await getFflogsEventsNew(
 			this.legacyReport,
 			this.fight,
-			{actorid: this.combatant.id},
+			this.combatant.id,
 		)
 
 		// Normalise & parse

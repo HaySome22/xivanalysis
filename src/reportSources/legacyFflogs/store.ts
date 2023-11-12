@@ -1,4 +1,4 @@
-import {getFflogsEvents} from 'api'
+import {getFflogsEvents, getFflogsEventsNew} from 'api'
 import {computed, toJS} from 'mobx'
 import {Pull, Actor} from 'report'
 import {reportStore as legacyReportStore} from 'store/report'
@@ -38,7 +38,7 @@ export class LegacyFflogsReportStore extends ReportStore {
 	}
 
 	// todo: clean up
-	override async fetchEvents(pullId: Pull['id']) {
+	override async fetchEvents(pullId: Pull['id'], actorId,) {
 		if (this.report == null) {
 			// todo: wait for report?
 			throw new Error('no report')
@@ -57,11 +57,10 @@ export class LegacyFflogsReportStore extends ReportStore {
 		}
 
 		// Request the full event set & adapt to xiva events
-		const legacyEvents = await getFflogsEvents(
+		const legacyEvents = await getFflogsEventsNew(
 			legacyReport,
 			legacyFight,
-			{/* actorid: parseInt(actorId, 10) */},
-			true,
+			actorId,
 		)
 
 		// We're cloning the events going into the adapter, such that any mutations from it do not effect the

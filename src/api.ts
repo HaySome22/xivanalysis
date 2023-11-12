@@ -4,6 +4,8 @@ import _ from 'lodash'
 import {Report} from 'store/report'
 import {FflogsEvent, Fight, Pet, ReportEventsQuery, ReportEventsResponse} from './fflogs'
 
+const token = process.env.REACT_APP_GQL_ACCESS_TOKEN;
+
 const options: Options = {
 	prefixUrl: process.env.REACT_APP_FFLOGS_V1_BASE_URL,
 	// We're dealing with some potentially slow endpoints - avoid throwing obtuse errors if it takes a bit
@@ -62,6 +64,51 @@ let eventCache: {
 	key: string,
 	events: FflogsEvent[],
 } | undefined
+
+async function getFflogsEventsGql(report, fight, source, start, end) {
+	const url = 'https://www.fflogs.com/api/v2/user';
+	const body = `
+	query q {
+		reportData {
+			report(code: "${report}") {
+				events(fightIDs: [${fight}], sourceID: ${source}) {
+					data
+					nextPageTimestamp
+				}
+			}
+		}
+	}
+	`
+	const res = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify({
+			query: body
+		}),
+		headers: {
+			"Content-type": "application/json",
+			'Authorization': `Bearer ${token}`,
+		}
+	})
+	return await res.json();
+}
+
+export async function getFflogsEventsNew(
+	report: Report,
+	fight: Fight,
+	actorId,
+) {
+	const {code} = report
+	
+	const res = await getFflogsEventsGql(code, fight.id, actorId, fight.start_time, fight.end_time)
+	const events = res.data.reportData.report.events.data
+
+	for (let e of events) {
+		e.ability = {guid: e.abilityGameID}
+	}
+
+	// And done
+	return events
+}
 
 // Helper for pagination and suchforth
 export async function getFflogsEvents(

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "webpack serve --hot --mode development --open",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && webpack serve --hot --mode development --open",
     "build": "webpack --mode production",
     "test": "jest",
     "lint": "eslint src",
