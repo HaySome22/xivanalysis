@@ -89,7 +89,34 @@ async function getFflogsEventsGql(report, fight, source, start, end) {
 			'Authorization': `Bearer ${token}`,
 		}
 	})
-	return await res.json();
+	
+	const body2 = `
+	query q {
+		reportData {
+			report(code: "${report}") {
+				events(fightIDs: [${fight}], filterExpression: "type=\\"targetabilityupdate\\"") {
+					data
+					nextPageTimestamp
+				}
+			}
+		}
+	}
+	`
+	const res2 = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify({
+			query: body2
+		}),
+		headers: {
+			"Content-type": "application/json",
+			'Authorization': `Bearer ${token}`,
+		}
+	})
+
+	const data = await res.json();
+	const data2 = await res2.json();
+
+	return [...data.data.reportData.report.events.data, ...data2.data.reportData.report.events.data]
 }
 
 export async function getFflogsEventsNew(
@@ -99,8 +126,7 @@ export async function getFflogsEventsNew(
 ) {
 	const {code} = report
 	
-	const res = await getFflogsEventsGql(code, fight.id, actorId, fight.start_time, fight.end_time)
-	const events = res.data.reportData.report.events.data
+	const events = await getFflogsEventsGql(code, fight.id, actorId, fight.start_time, fight.end_time)
 
 	for (let e of events) {
 		e.ability = {guid: e.abilityGameID}
