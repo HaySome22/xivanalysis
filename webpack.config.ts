@@ -43,7 +43,6 @@ export default (env: Environment, {
 		host: 'localhost',
 		port: 3000,
 		historyApiFallback: true,
-		overlay: true,
 		liveReload: false,
 		// `hot: true` implied by --hot cli arg
 	},
