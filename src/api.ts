@@ -65,7 +65,7 @@ let eventCache: {
 	events: FflogsEvent[],
 } | undefined
 
-async function getFflogsEventsGql(report, fight, source, start, end) {
+export async function getFflogsEventsGql(report: any, fight: any, source: any, start: any, end: any) {
 	const url = 'https://www.fflogs.com/api/v2/user';
 	const body = `
 	query q {
@@ -122,11 +122,12 @@ async function getFflogsEventsGql(report, fight, source, start, end) {
 export async function getFflogsEventsNew(
 	report: Report,
 	fight: Fight,
-	actorId,
+	actorId: any,
 ) {
 	const {code} = report
 	
-	const events = await getFflogsEventsGql(code, fight.id, actorId, fight.start_time, fight.end_time)
+	// const events = await getFflogsEventsGql(code, fight.id, actorId, fight.start_time, fight.end_time)
+	const events = await getFflogsEventsGqlProxy(code, fight.id, actorId, fight.start_time, fight.end_time);
 
 	for (let e of events) {
 		e.ability = {guid: e.abilityGameID}
@@ -135,6 +136,34 @@ export async function getFflogsEventsNew(
 	// And done
 	return events
 }
+
+async function getFflogsEventsGqlProxy(
+	code: any,
+	fightId: any,
+	actorId: any,
+	startTime: any,
+	endTime: any
+  ) {
+	const response = await fetch('http://localhost:3001/fflogs-events', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify({
+		code,
+		fightId,
+		actorId,
+		startTime,
+		endTime,
+	  }),
+	});
+  
+	if (!response.ok) {
+	  throw new Error(`HTTP error! status: ${response.status}`);
+	}
+  
+	return response.json();
+  }
 
 // Helper for pagination and suchforth
 export async function getFflogsEvents(
