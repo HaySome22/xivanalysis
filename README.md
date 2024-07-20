@@ -16,3 +16,12 @@ Open the `.env` file and enter your access token.
 `yarn start`
 
 Navigate to [localhost:3000](http://localhost:3000)
+
+# Re-deployment
+
+- `git reset --hard` -> undo all changes
+- `git pull`
+- `yarn` -> install dependencies
+- Put key in `.env` file
+- `yarn start` -> starts frontend server
+- `yarn server-fastify` in a separate terminal -> starts backend server

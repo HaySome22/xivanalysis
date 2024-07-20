@@ -65,6 +65,10 @@ async function getFflogsEventsGql(report, fight, source, start, end) {
 }
 
 // Define an API route
+app.get('/', (req, res) => {
+	res.send('Hello, world!');
+  });
+
 app.post('/fflogs-events', async (req, res) => {
   const { code, fightId, actorId, startTime, endTime } = req.body;
   try {
