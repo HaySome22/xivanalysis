@@ -6,9 +6,9 @@ const token = process.env.GQL_ACCESS_TOKEN;
 const port = 3001;
 
 // Register CORS
-fastify.register(cors, { 
-  // put your options here
-});
+// fastify.register(cors, { 
+//   // put your options here
+// });
 
 fastify.register(require('@fastify/formbody'));
 
