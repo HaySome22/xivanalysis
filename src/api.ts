@@ -144,7 +144,7 @@ async function getFflogsEventsGqlProxy(
 	startTime: any,
 	endTime: any
   ) {
-	const response = await fetch('http://localhost:3001/fflogs-events', {
+	const response = await fetch('/fflogs-events', {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
