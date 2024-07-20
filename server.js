@@ -1,13 +1,11 @@
 const express = require('express');
-const cors = require('cors');
-require('dotenv').config()
+require('dotenv').config();
 
 const token = process.env.GQL_ACCESS_TOKEN;
 
 const app = express();
 const port = 3001;
 
-app.use(cors());
 app.use(express.json());
 
 async function getFflogsEventsGql(report, fight, source, start, end) {
