@@ -23,5 +23,5 @@ Navigate to [localhost:3000](http://localhost:3000)
 - `git pull`
 - `yarn` -> install dependencies
 - Put key in `.env` file
-- `yarn start` -> starts frontend server
-- `yarn server-fastify` in a separate terminal -> starts backend server
+- `yarn start-linux` -> starts frontend server
+- `yarn server` in a separate terminal -> starts backend server
