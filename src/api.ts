@@ -4,8 +4,6 @@ import _ from 'lodash'
 import {Report} from 'store/report'
 import {FflogsEvent, Fight, Pet, ReportEventsQuery, ReportEventsResponse} from './fflogs'
 
-const token = process.env.REACT_APP_GQL_ACCESS_TOKEN;
-
 const options: Options = {
 	prefixUrl: process.env.REACT_APP_FFLOGS_V1_BASE_URL,
 	// We're dealing with some potentially slow endpoints - avoid throwing obtuse errors if it takes a bit
@@ -65,60 +63,6 @@ let eventCache: {
 	events: FflogsEvent[],
 } | undefined
 
-export async function getFflogsEventsGql(report: any, fight: any, source: any, start: any, end: any) {
-	const url = 'https://www.fflogs.com/api/v2/user';
-	const body = `
-	query q {
-		reportData {
-			report(code: "${report}") {
-				events(fightIDs: [${fight}], sourceID: ${source}) {
-					data
-					nextPageTimestamp
-				}
-			}
-		}
-	}
-	`
-	const res = await fetch(url, {
-		method: "POST",
-		body: JSON.stringify({
-			query: body
-		}),
-		headers: {
-			"Content-type": "application/json",
-			'Authorization': `Bearer ${token}`,
-		}
-	})
-	
-	const body2 = `
-	query q {
-		reportData {
-			report(code: "${report}") {
-				events(fightIDs: [${fight}], filterExpression: "type=\\"targetabilityupdate\\"") {
-					data
-					nextPageTimestamp
-				}
-			}
-		}
-	}
-	`
-	const res2 = await fetch(url, {
-		method: "POST",
-		body: JSON.stringify({
-			query: body2
-		}),
-		headers: {
-			"Content-type": "application/json",
-			'Authorization': `Bearer ${token}`,
-		}
-	})
-
-	const data = await res.json();
-	const data2 = await res2.json();
-
-	return [...data.data.reportData.report.events.data, ...data2.data.reportData.report.events.data]
-}
-
 export async function getFflogsEventsNew(
 	report: Report,
 	fight: Fight,
@@ -126,7 +70,6 @@ export async function getFflogsEventsNew(
 ) {
 	const {code} = report
 	
-	// const events = await getFflogsEventsGql(code, fight.id, actorId, fight.start_time, fight.end_time)
 	const events = await getFflogsEventsGqlProxy(code, fight.id, actorId, fight.start_time, fight.end_time);
 
 	for (let e of events) {
