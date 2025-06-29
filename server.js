@@ -33,11 +33,12 @@ async function getFflogsEventsGql(report, fight, source, start, end) {
 		}
 	})
 	
+	const filterExpression = 'type="targetabilityupdate" or ability.name in ("Chain Stratagem","Trick Attack")';
 	const body2 = `
 	query q {
 		reportData {
 			report(code: "${report}") {
-				events(fightIDs: [${fight}], filterExpression: "type=\\"targetabilityupdate\\" or ability.name in (\\"Chain Stratagem\\",\\"Trick Attack\\")") {
+				events(fightIDs: [${fight}], filterExpression: "${filterExpression}") {
 					data
 					nextPageTimestamp
 				}
