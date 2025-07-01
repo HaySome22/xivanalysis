@@ -26,16 +26,6 @@ export const PATCHES = ensureRecord<PatchInfo>()({
 			[GameEdition.CHINESE]: 0,
 		},
 	},
-	'Stormblood': {
-		date: {
-			[GameEdition.GLOBAL]: 1497517200,
-			[GameEdition.KOREAN]: 1513670400,
-			[GameEdition.CHINESE]: 1506412800,
-		},
-		branch: {
-			baseUrl: 'https://stormblood.xivanalysis.com',
-		},
-	},
 	'Shadowbringers': {
 		date: {
 			[GameEdition.GLOBAL]: 1561712400, // 28/06/19 09:00:00 GMT
@@ -43,7 +33,7 @@ export const PATCHES = ensureRecord<PatchInfo>()({
 			[GameEdition.CHINESE]: 1571126400, // 15/10/19 08:00:00 GMT
 		},
 		branch: {
-			baseUrl: 'https://shadowbringers.xivanalysis.com',
+			baseUrl: 'https://xiva.rngfactory.com',
 		},
 	},
 	'6.0': {
