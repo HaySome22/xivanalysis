@@ -22,14 +22,14 @@ export class EventsView extends Analyser {
 	private events: Event[] = []
 
 	override initialise() {
-		this.debug(() => {
-			// Catch every event. Note: if you're reading this - don't use the predicate for logic unless you know exactly what you're doing.
-			// It's a massive anti-pattern, and I'm only doing it here as a microoptimisation for a single use case. If you're not sure, ask.
-			this.addEventHook((event): event is never => {
-				this.events.push(event)
-				return false
-			}, () => { /* noop - this will never be called */ })
-		})
+		// this.debug(() => {
+		// 	// Catch every event. Note: if you're reading this - don't use the predicate for logic unless you know exactly what you're doing.
+		// 	// It's a massive anti-pattern, and I'm only doing it here as a microoptimisation for a single use case. If you're not sure, ask.
+		// 	this.addEventHook((event): event is never => {
+		// 		this.events.push(event)
+		// 		return false
+		// 	}, () => { /* noop - this will never be called */ })
+		// })
 	}
 
 	override output() {

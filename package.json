@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "webpack serve --hot --mode development --open",
+    "start-linux": "webpack serve --mode development --open",
     "build": "webpack --mode production",
     "test": "jest",
     "lint": "eslint src",
