@@ -33,7 +33,7 @@ async function getFflogsEventsGql(report, fight, source, start, end) {
 		}
 	})
 	
-	const filterExpression = String.raw`type=\"targetabilityupdate\" or ability.name in (\"Chain Stratagem\",\"Trick Attack\")`;
+	const filterExpression = String.raw`type=\"targetabilityupdate\" or ability.name in (\"Chain Stratagem\",\"Vulnerability Up\")`;
 	const body2 = `
 	query q {
 		reportData {
