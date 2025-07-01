@@ -37,6 +37,7 @@ module.exports = api => ({
 			targets: api.caller(needsNodeTarget)
 				? {node: true}
 				: undefined,
+			loose: true,
 		}],
 		['@babel/preset-react', {
 			development: api.env('development'),

@@ -144,6 +144,51 @@ async function requestEvents(
 	return response
 }
 
+export async function getFflogsEventsNew(
+	report: Report,
+	fight: Fight,
+	actorId: any,
+) {
+	const {code} = report
+
+	const events = await getFflogsEventsGqlProxy(code, fight.id, actorId, fight.start_time, fight.end_time);
+
+	for (let e of events) {
+		e.ability = {guid: e.abilityGameID}
+	}
+
+	// And done
+	return events
+}
+
+async function getFflogsEventsGqlProxy(
+	code: any,
+	fightId: any,
+	actorId: any,
+	startTime: any,
+	endTime: any
+  ) {
+	const response = await fetch('/fflogs-events', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify({
+		code,
+		fightId,
+		actorId,
+		startTime,
+		endTime,
+	  }),
+	});
+
+	if (!response.ok) {
+	  throw new Error(`HTTP error! status: ${response.status}`);
+	}
+
+	return response.json();
+  }
+
 // Helper for pagination and suchforth
 export async function getFflogsEvents(
 	report: Report,

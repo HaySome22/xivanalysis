@@ -4,7 +4,7 @@ import {isDefined} from 'utilities'
 import {ReportStore, FetchOptions} from '../base'
 import {adaptEvents} from './eventAdapter'
 import fflogsIcon from './fflogs.png'
-import {getFflogsEvents} from './fflogsApi'
+import {getFflogsEvents, getFflogsEventsNew} from './fflogsApi'
 import {reportStore as legacyReportStore} from './legacyStore'
 import {adaptReport} from './reportAdapter'
 
@@ -45,7 +45,7 @@ export class LegacyFflogsReportStore extends ReportStore {
 	}
 
 	// todo: clean up
-	override async fetchEvents(pullId: Pull['id']) {
+	override async fetchEvents(pullId: Pull['id'], actorId: any) {
 		if (this.report == null) {
 			// todo: wait for report?
 			throw new Error('no report')
@@ -64,9 +64,10 @@ export class LegacyFflogsReportStore extends ReportStore {
 		}
 
 		// Request the full event set & adapt to xiva events
-		const legacyEvents = await getFflogsEvents(
+		const legacyEvents = await getFflogsEventsNew(
 			legacyReport,
 			legacyFight,
+			actorId,
 		)
 
 		return adaptEvents(report, pull, legacyEvents)
