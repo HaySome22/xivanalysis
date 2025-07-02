@@ -5,15 +5,15 @@ Download and install Node https://nodejs.org/en/
 Navigate to inside `./xivanalysis`, open a terminal and run:
 
 ```
-npm install --global yarn
-yarn
+npm install --global pnpm
+pnpm install
 ```
 
 Open the `.env` file and enter your access token.
 
 # Run
 
-`yarn start`
+`pnpm run start`
 
 Navigate to [localhost:3000](http://localhost:3000)
 
@@ -21,7 +21,7 @@ Navigate to [localhost:3000](http://localhost:3000)
 
 - `git reset --hard` -> undo all changes
 - `git pull`
-- `yarn` -> install dependencies
+- `pnpm install` -> install dependencies
 - Put key in `.env` file
-- `yarn start-linux` -> starts frontend server
-- `yarn server` in a separate terminal -> starts backend server
+- `pnpm run start-linux` -> starts frontend server
+- `pnpm run server` in a separate terminal -> starts backend server
