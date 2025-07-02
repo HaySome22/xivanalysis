@@ -25,16 +25,6 @@ const patchData = {
 			[GameEdition.CHINESE]: 0,
 		},
 	},
-	'Stormblood': {
-		date: {
-			[GameEdition.GLOBAL]: 1497517200,
-			[GameEdition.KOREAN]: 1513670400,
-			[GameEdition.CHINESE]: 1506412800,
-		},
-		branch: {
-			baseUrl: 'https://stormblood.xivanalysis.com',
-		},
-	},
 	'5.0': {
 		date: {
 			[GameEdition.GLOBAL]: 1561712400, // 28/06/19 09:00:00 GMT
@@ -92,6 +82,14 @@ const patchData = {
 			[GameEdition.GLOBAL]: 1618304400, // 13/04/21 09:00:00 GMT
 			[GameEdition.KOREAN]: 1631606400, // 14/09/21 08:00:00 GMT
 			[GameEdition.CHINESE]: 1628582400, // 10/08/21 08:00:00 GMT
+		},
+	},
+	'Endwalker': {
+		date: {
+			[GameEdition.GLOBAL]: 1637312400, // 19/11/21 09:00:00 GMT
+		},
+		branch: {
+			baseUrl: 'https://xiva-ew.rngfactory.com',
 		},
 	},
 	// Do not add new patches beneath this point.
